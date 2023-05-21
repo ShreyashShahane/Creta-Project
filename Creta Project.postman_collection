@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "ea458f91-dcdc-4a7f-9108-9b1a9bb1b6f9",
+		"name": "Create Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27054707"
+	},
+	"item": [
+		{
+			"name": "CRETA PROJECT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify latitude and longitude\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.coord.lat).to.eql(51.51);\r",
+							"    pm.expect(jsonData.coord.lon).to.eql(-0.13);\r",
+							"});\r",
+							"pm.test(\"Verify temperature unit in Celsius\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.main.temp).to.be.a(\"number\");\r",
+							"    pm.expect(jsonData.main.temp).to.be.greaterThan(-100); // Adjust the temperature range if necessary\r",
+							"    pm.expect(jsonData.main.temp).to.be.lessThan(100); // Adjust the temperature range if necessary\r",
+							"    pm.expect(jsonData.main.temp).to.have.string(\"°C\");\r",
+							"});\r",
+							"pm.test(\"Verify weather description\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.weather[0].description).to.be.a(\"string\");\r",
+							"});\r",
+							"pm.test(\"Verify response code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6 907d289e10d714a6e88b30761fae22",
+					"protocol": "https",
+					"host": [
+						"samples",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "London,uk"
+						},
+						{
+							"key": "appid",
+							"value": "b6 907d289e10d714a6e88b30761fae22"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
